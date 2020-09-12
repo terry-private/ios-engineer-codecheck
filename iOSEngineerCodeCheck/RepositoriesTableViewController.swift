@@ -9,7 +9,7 @@
 import UIKit
 
 class RepositoriesTableViewController: UITableViewController, UISearchBarDelegate {
-
+    
     @IBOutlet weak var repositorySearchBar: UISearchBar!
     
     var repositories: [[String: Any]]=[]
@@ -41,7 +41,7 @@ class RepositoriesTableViewController: UITableViewController, UISearchBarDelegat
         word = searchBar.text!
         
         if word.count == 0 { return }
-
+        
         // URLの強制アンラップを廃止し事前にエラーとしてreturn
         guard let url = URL(string: "https://api.github.com/search/repositories?q=\(word!)") else {
             print("urlエラー")
@@ -69,7 +69,8 @@ class RepositoriesTableViewController: UITableViewController, UISearchBarDelegat
         
         if segue.identifier == "Detail"{
             let dtl = segue.destination as! RepositoryViewController
-            dtl.repositoriesTableViewController = self
+            dtl.repository = RepositoryModel(dic: repositories[index])
+            dtl.repository?.delegate = dtl
         }
         
     }
