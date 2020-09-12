@@ -19,40 +19,27 @@ class RepositoryViewController: UIViewController {
     @IBOutlet weak var issuesLabel: UILabel!
     
     var repositoriesTableViewController: RepositoriesTableViewController!
-        
+    var repository: RepositoryModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let repo = repositoriesTableViewController.repositories[repositoriesTableViewController.index]
-        
-        languageLabel.text = "Written in \(repo["language"] as? String ?? "")"
-        starsLabel.text = "\(repo["stargazers_count"] as? Int ?? 0) stars"
-        watchersLabel.text = "\(repo["wachers_count"] as? Int ?? 0) watchers"
-        forksLabel.text = "\(repo["forks_count"] as? Int ?? 0) forks"
-        issuesLabel.text = "\(repo["open_issues_count"] as? Int ?? 0) open issues"
-        getImage()
+        setContent()
+        repository?.fetchImage()
     }
-    
-    func getImage() {
-        let repo = repositoriesTableViewController.repositories[repositoriesTableViewController.index]
-        titleLabel.text = repo["full_name"] as? String
-        
-        guard let owner = repo["owner"] as? [String: Any] else { return }
-        guard let urlString = owner["avatar_url"] as? String else { return }
-        // URLの強制アンラップを廃止し事前にエラーとしてreturn
-        guard let imgURL = URL(string: urlString) else {
-            print("urlエラー")
-            return
+    func setContent() {
+        titleLabel.text = repository?.fullName
+        languageLabel.text = "Written in \(repository?.language ?? "")"
+        starsLabel.text = "\(repository?.stars ?? 0) stars"
+        watchersLabel.text = "\(repository?.watchers ?? 0) watchers"
+        forksLabel.text = "\(repository?.forks ?? 0) forks"
+        issuesLabel.text = "\(repository?.issues ?? 0) open issues"
+    }
+}
+
+extension RepositoryViewController: RepositoryModelDelegate{
+    func fetchImage(image: UIImage) {
+        DispatchQueue.main.async {
+            self.imageView.image = image
         }
-        URLSession.shared.dataTask(with: imgURL) { (data, res, err) in
-            if let err = err {
-                print("err: \(err)")
-                return
-            }
-            guard let data = data, let img = UIImage(data: data) else { return }
-            DispatchQueue.main.async {
-                self.imageView.image = img
-            }
-        }.resume()
     }
 }
