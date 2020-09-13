@@ -10,7 +10,7 @@ import UIKit
 
 protocol RepositoryModelDelegate: class {
     func fetchImage(image: UIImage)
-    func fetchSubscribesCount(subscribersCount: Int)
+    func fetchContents()
 }
 class RepositoryModel {
     var fullName: String = ""
@@ -18,6 +18,7 @@ class RepositoryModel {
     var stars: Int = 0
     var forks: Int = 0
     var issues: Int = 0
+    var subscribersCount: Int = 0
     var owner: [String: Any] = [String: Any]()
     
     // githubにおいてwatcherの概念が変更となるようです。
@@ -36,7 +37,7 @@ class RepositoryModel {
         forks = dic["forks_count"] as? Int ?? 0
         issues = dic["open_issues_count"] as? Int ?? 0
         owner = dic["owner"] as? [String: Any] ?? [String: Any]()
-        fullName = owner["full_name"] as? String ?? ""
+        fullName = dic["full_name"] as? String ?? ""
         repositoryUrl = dic["url"] as? String ?? ""
     }
     
@@ -53,10 +54,10 @@ class RepositoryModel {
                 return
             }
             guard let data = data, let obj = try! JSONSerialization.jsonObject(with: data) as? [String: Any] else { print("error") ;return}
-            self.delegate?.fetchSubscribesCount(subscribersCount: obj["subscribers_count"] as? Int ?? 0)
+            self.subscribersCount = obj["subscribers_count"] as? Int ?? 0
+            self.delegate?.fetchContents()
         }
         task.resume()
-        
     }
     
     func fetchImage() {

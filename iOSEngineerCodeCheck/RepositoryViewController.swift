@@ -22,9 +22,6 @@ class RepositoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setContent()
-        repository?.fetchSubscribersCount()
-        repository?.fetchImage()
     }
     
     func setContent() {
@@ -33,13 +30,16 @@ class RepositoryViewController: UIViewController {
         starsLabel.text = "\(repository?.stars ?? 0) stars"
         forksLabel.text = "\(repository?.forks ?? 0) forks"
         issuesLabel.text = "\(repository?.issues ?? 0) open issues"
+        watchersLabel.text = "\(repository?.subscribersCount ?? 0) watchers"
     }
 }
 
 extension RepositoryViewController: RepositoryModelDelegate{
-    func fetchSubscribesCount(subscribersCount: Int) {
+    // ModelDelegateからのイベント
+    // 別のスレッドから来るのでメインスレッドを指定しないとリークの原因になるっぽい
+    func fetchContents() {
         DispatchQueue.main.async {
-            self.watchersLabel.text = "\(subscribersCount) watchers"
+            self.setContent()
         }
     }
     

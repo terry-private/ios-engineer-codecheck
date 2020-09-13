@@ -21,7 +21,6 @@ class RepositoriesTableViewController: UITableViewController, UISearchBarDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         repositorySearchBar.text = "GitHubのリポジトリを検索できるよー"
         repositorySearchBar.delegate = self
     }
@@ -66,11 +65,13 @@ class RepositoriesTableViewController: UITableViewController, UISearchBarDelegat
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        // 画面遷移直前に呼ばれる
         if segue.identifier == "Detail"{
             let dtl = segue.destination as! RepositoryViewController
             dtl.repository = RepositoryModel(dic: repositories[index])
             dtl.repository?.delegate = dtl
+            dtl.repository?.fetchSubscribersCount()
+            dtl.repository?.fetchImage()
         }
         
     }
@@ -91,10 +92,8 @@ class RepositoriesTableViewController: UITableViewController, UISearchBarDelegat
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 画面遷移時に呼ばれる
         index = indexPath.row
         performSegue(withIdentifier: "Detail", sender: self)
-        
     }
     
 }
