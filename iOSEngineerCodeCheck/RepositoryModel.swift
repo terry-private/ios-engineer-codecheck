@@ -12,6 +12,7 @@ protocol RepositoryModelDelegate: class {
     func fetchImage(image: UIImage)
     func fetchContents()
 }
+
 class RepositoryModel {
     var fullName: String = ""
     var language: String = ""
@@ -21,12 +22,17 @@ class RepositoryModel {
     var subscribersCount: Int = 0
     var owner: [String: Any] = [String: Any]()
     
-    // githubにおいてwatcherの概念が変更となるようです。
-    // subscribers_countを利用する必要がある
-    // だたし検索結果のjsonにはsubscribers_urlしかないので、fetchSubscribersCountを作りました。
-    // 参考：https://github.com/milo/github-api/issues/19
+    /*
+    githubにおいてwatcherの概念が変更となるようです。
+    subscribers_countを利用する必要がある
+    だたし検索結果のjsonにはないので、fetchSubscribersCountを作り
+    repositoryUrlを使ってもう一度APIを叩きに行きます！
+    そして今後リポジトリ画面にもっと詳細の情報を載せる拡張をするかもしれない。。。
+    参考：https://github.com/milo/github-api/issues/19
+    */
     var repositoryUrl: String = ""
     
+    // メモリリークを避けるための弱参照
     weak var delegate: RepositoryModelDelegate?
 
     /// イニシャライザーでgithub api から取ったjsonをパースした辞書をそのまま展開します。

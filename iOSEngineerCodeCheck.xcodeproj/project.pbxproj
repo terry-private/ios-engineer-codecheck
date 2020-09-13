@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		094C5A3A250DEFEA009FB75B /* RepositoryListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094C5A39250DEFEA009FB75B /* RepositoryListModel.swift */; };
 		09509490250D220F00F5C6CA /* RepositoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950948F250D220F00F5C6CA /* RepositoryModel.swift */; };
 		09509492250D39DC00F5C6CA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 09509491250D39DB00F5C6CA /* README.md */; };
 		BF0A658D244F2A3B00280FA6 /* RepositoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A658C244F2A3B00280FA6 /* RepositoryViewController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		094C5A39250DEFEA009FB75B /* RepositoryListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListModel.swift; sourceTree = "<group>"; };
 		0950948F250D220F00F5C6CA /* RepositoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryModel.swift; sourceTree = "<group>"; };
 		09509491250D39DB00F5C6CA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BF0A658C244F2A3B00280FA6 /* RepositoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				BFD945DE244DC5E80012785A /* AppDelegate.swift */,
 				BFD945E0244DC5E80012785A /* SceneDelegate.swift */,
 				0950948F250D220F00F5C6CA /* RepositoryModel.swift */,
+				094C5A39250DEFEA009FB75B /* RepositoryListModel.swift */,
 				BFD945E2244DC5E80012785A /* RepositoriesTableViewController.swift */,
 				BF0A658C244F2A3B00280FA6 /* RepositoryViewController.swift */,
 				BFD945E4244DC5E80012785A /* Main.storyboard */,
@@ -272,6 +275,7 @@
 				BFD945E3244DC5E80012785A /* RepositoriesTableViewController.swift in Sources */,
 				09509490250D220F00F5C6CA /* RepositoryModel.swift in Sources */,
 				BF0A658D244F2A3B00280FA6 /* RepositoryViewController.swift in Sources */,
+				094C5A3A250DEFEA009FB75B /* RepositoryListModel.swift in Sources */,
 				BFD945DF244DC5E80012785A /* AppDelegate.swift in Sources */,
 				BFD945E1244DC5E80012785A /* SceneDelegate.swift in Sources */,
 			);

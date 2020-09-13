@@ -8,60 +8,20 @@
 
 import UIKit
 
-class RepositoriesTableViewController: UITableViewController, UISearchBarDelegate {
+class RepositoriesTableViewController: UITableViewController {
     
     @IBOutlet weak var repositorySearchBar: UISearchBar!
     
     var repositories: [[String: Any]]=[]
-    
-    var task: URLSessionTask?
-    var word: String!
-    var url: String!
+    let repositoryListModel = RepositoryListModel()
+
     var index: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         repositorySearchBar.text = "GitHubのリポジトリを検索できるよー"
         repositorySearchBar.delegate = self
-    }
-    
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        // ↓こうすれば初期のテキストを消せる
-        searchBar.text = ""
-        return true
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        task?.cancel()
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        word = searchBar.text!
-        
-        if word.count == 0 { return }
-        
-        // URLの強制アンラップを廃止し事前にエラーとしてreturn
-        guard let url = URL(string: "https://api.github.com/search/repositories?q=\(word!)") else {
-            print("urlエラー")
-            return
-        }
-        task = URLSession.shared.dataTask(with: url) { (data, res, err) in
-            // クライアント側のエラー
-            if let err = err {
-                print("検索失敗。\(err)")
-                return
-            }
-            guard let data = data, let obj = try! JSONSerialization.jsonObject(with: data) as? [String: Any] else {return}
-            if let items = obj["items"] as? [[String: Any]] {
-                self.repositories = items
-                // これ呼ばなきゃリストが更新されません
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-        }
-        task?.resume()
+        repositoryListModel.delegate = self
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -73,7 +33,6 @@ class RepositoriesTableViewController: UITableViewController, UISearchBarDelegat
             dtl.repository?.fetchSubscribersCount()
             dtl.repository?.fetchImage()
         }
-        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -96,4 +55,31 @@ class RepositoriesTableViewController: UITableViewController, UISearchBarDelegat
         performSegue(withIdentifier: "Detail", sender: self)
     }
     
+}
+
+// UISearchBarDelegateのロジック周りをextensionとして分けます。
+extension RepositoriesTableViewController: UISearchBarDelegate {
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        // ↓こうすれば初期のテキストを消せる
+        searchBar.text = ""
+        return true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        repositoryListModel.cancel()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        repositoryListModel.serchRepositories(searchBar.text ?? "")
+    }
+}
+
+extension RepositoriesTableViewController: RepositoryListDelegate {
+    func fetchRepositoryList(searchResults: [[String : Any]]) {
+        repositories = searchResults
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
 }
