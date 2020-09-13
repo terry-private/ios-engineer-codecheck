@@ -11,7 +11,7 @@ import UIKit
 class RepositoriesTableViewController: UITableViewController {
     
     @IBOutlet weak var repositorySearchBar: UISearchBar!
-    
+    let cellId = "Repository"
     var repositories: [[String: Any]]=[]
     let repositoryListModel = RepositoryListModel()
 
@@ -41,10 +41,11 @@ class RepositoriesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell()
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! RepositoryTabelViewCell
+
         let rp = repositories[indexPath.row]
-        cell.textLabel?.text = rp["full_name"] as? String ?? ""
-        cell.detailTextLabel?.text = rp["language"] as? String ?? ""
+        cell.titleLabel.text = rp["full_name"] as? String ?? ""
+        cell.detailLabel.text = rp["language"] as? String ?? ""
         cell.tag = indexPath.row
         return cell
         
@@ -81,5 +82,13 @@ extension RepositoriesTableViewController: RepositoryListDelegate {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+}
+
+class RepositoryTabelViewCell: UITableViewCell {
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var detailLabel: UILabel!
+    override func awakeFromNib() {
+        super.awakeFromNib()
     }
 }
