@@ -10,15 +10,21 @@ import UIKit
 
 protocol RepositoryModelDelegate: class {
     func fetchImage(image: UIImage)
+    func fetchSubscribesCount(subscribersCount: Int)
 }
 class RepositoryModel {
     var fullName: String = ""
     var language: String = ""
     var stars: Int = 0
-    var watchers: Int = 0
     var forks: Int = 0
     var issues: Int = 0
     var owner: [String: Any] = [String: Any]()
+    
+    // githubにおいてwatcherの概念が変更となるようです。
+    // subscribers_countを利用する必要がある
+    // だたし検索結果のjsonにはsubscribers_urlしかないので、fetchSubscribersCountを作りました。
+    // 参考：https://github.com/milo/github-api/issues/19
+    var repositoryUrl: String = ""
     
     weak var delegate: RepositoryModelDelegate?
 
@@ -27,11 +33,29 @@ class RepositoryModel {
     init(dic: [String: Any]){
         language = dic["language"] as? String ?? ""
         stars = dic["stargazers_count"] as? Int ?? 0
-        watchers = dic["watchers_count"] as? Int ?? 0
         forks = dic["forks_count"] as? Int ?? 0
         issues = dic["open_issues_count"] as? Int ?? 0
         owner = dic["owner"] as? [String: Any] ?? [String: Any]()
         fullName = owner["full_name"] as? String ?? ""
+        repositoryUrl = dic["url"] as? String ?? ""
+    }
+    
+    func fetchSubscribersCount() {
+        if repositoryUrl == "" { return }
+        guard let url = URL(string: repositoryUrl) else {
+            print("urlエラー")
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url) { (data, res, err) in
+            // クライアント側のエラー
+            if let err = err {
+                print("検索失敗。\(err)")
+                return
+            }
+            guard let data = data, let obj = try! JSONSerialization.jsonObject(with: data) as? [String: Any] else { print("error") ;return}
+            self.delegate?.fetchSubscribesCount(subscribersCount: obj["subscribers_count"] as? Int ?? 0)
+        }
+        task.resume()
         
     }
     

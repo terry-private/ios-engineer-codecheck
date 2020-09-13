@@ -17,29 +17,36 @@ class RepositoryViewController: UIViewController {
     @IBOutlet weak var watchersLabel: UILabel!
     @IBOutlet weak var forksLabel: UILabel!
     @IBOutlet weak var issuesLabel: UILabel!
-    
-    var repositoriesTableViewController: RepositoriesTableViewController!
+
     var repository: RepositoryModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setContent()
+        repository?.fetchSubscribersCount()
         repository?.fetchImage()
     }
+    
     func setContent() {
         titleLabel.text = repository?.fullName
         languageLabel.text = "Written in \(repository?.language ?? "")"
         starsLabel.text = "\(repository?.stars ?? 0) stars"
-        watchersLabel.text = "\(repository?.watchers ?? 0) watchers"
         forksLabel.text = "\(repository?.forks ?? 0) forks"
         issuesLabel.text = "\(repository?.issues ?? 0) open issues"
     }
 }
 
 extension RepositoryViewController: RepositoryModelDelegate{
+    func fetchSubscribesCount(subscribersCount: Int) {
+        DispatchQueue.main.async {
+            self.watchersLabel.text = "\(subscribersCount) watchers"
+        }
+    }
+    
     func fetchImage(image: UIImage) {
         DispatchQueue.main.async {
             self.imageView.image = image
         }
     }
+    
 }
