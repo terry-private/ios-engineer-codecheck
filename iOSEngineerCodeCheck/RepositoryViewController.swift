@@ -36,7 +36,7 @@ class RepositoryViewController: UIViewController {
 
 extension RepositoryViewController: RepositoryModelDelegate{
     // ModelDelegateからのイベント
-    // 別のスレッドから来るのでメインスレッドを指定しないとリークの原因になるっぽい
+    // 別のスレッドから実行されでメインスレッドを指定しないとエラーが出る
     func fetchContents() {
         DispatchQueue.main.async {
             self.setContent()
