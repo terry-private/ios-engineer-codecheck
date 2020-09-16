@@ -9,8 +9,8 @@
 import UIKit
 
 protocol RepositoryModelDelegate: class {
-    func fetchImage(image: UIImage)
-    func fetchContents()
+    func fetchContentsResult(result: ApiResult)
+    func fetchImageResult(result: ApiResult)
 }
 
 class RepositoryModel {
@@ -24,11 +24,11 @@ class RepositoryModel {
     
     /*
     githubにおいてwatcherの概念が変更となるようです。
+    参考：https://github.com/milo/github-api/issues/19
     subscribers_countを利用する必要がある
     だたし検索結果のjsonにはないので、fetchSubscribersCountを作り
     repositoryUrlを使ってもう一度APIを叩きに行きます！
     そして今後リポジトリ画面にもっと詳細の情報を載せる拡張をするかもしれない。。。
-    参考：https://github.com/milo/github-api/issues/19
     */
     var repositoryUrl: String = ""
     
@@ -46,44 +46,16 @@ class RepositoryModel {
         fullName = dic["full_name"] as? String ?? ""
         repositoryUrl = dic["url"] as? String ?? ""
     }
-    
-    func fetchSubscribersCount() {
+
+    func fetchSubscribersCount(){
         if repositoryUrl == "" { return }
-        guard let url = URL(string: repositoryUrl) else {
-            print("urlエラー")
-            return
-        }
-        let task = URLSession.shared.dataTask(with: url) { (data, res, err) in
-            // クライアント側のエラー
-            if let err = err {
-                print("検索失敗。\(err)")
-                return
-            }
-            guard let data = data, let obj = try! JSONSerialization.jsonObject(with: data) as? [String: Any] else { print("error") ;return}
-            self.subscribersCount = obj["subscribers_count"] as? Int ?? 0
-            self.delegate?.fetchContents()
-        }
-        task.resume()
+        guard let delegateFunc = delegate?.fetchContentsResult else { return }
+        URLSession.getApiResult(apiUrl: repositoryUrl, type: .Json, delegateFunc: delegateFunc)
     }
     
     func fetchImage() {
         guard let urlString = owner["avatar_url"] as? String else { return }
-        // URLの強制アンラップを廃止し事前にエラーとしてreturn
-        guard let imgURL = URL(string: urlString) else {
-            print("urlエラー")
-            return
-        }
-        URLSession.shared.dataTask(with: imgURL) { (data, res, err) in
-            if let err = err {
-                print("err: \(err)")
-                return
-            }
-            guard let data = data, let img = UIImage(data: data) else {
-                return
-            }
-            self.delegate?.fetchImage(image: img)
-        }.resume()
+        guard let delegateFunc = delegate?.fetchImageResult else { return }
+        URLSession.getApiResult(apiUrl: urlString, type: .Image, delegateFunc: delegateFunc)
     }
-
 }
-
