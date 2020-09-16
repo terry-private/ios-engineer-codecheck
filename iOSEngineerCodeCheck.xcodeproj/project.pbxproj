@@ -86,6 +86,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09477A6E251271E900FEB902 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BFD945E2244DC5E80012785A /* RepositoriesTableViewController.swift */,
+				BF0A658C244F2A3B00280FA6 /* RepositoryViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		09477A6F2512720E00FEB902 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				094C5A39250DEFEA009FB75B /* RepositoryListModel.swift */,
+				0950948F250D220F00F5C6CA /* RepositoryModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		BFD945D2244DC5E80012785A = {
 			isa = PBXGroup;
 			children = (
@@ -112,10 +130,8 @@
 			children = (
 				BFD945DE244DC5E80012785A /* AppDelegate.swift */,
 				BFD945E0244DC5E80012785A /* SceneDelegate.swift */,
-				094C5A39250DEFEA009FB75B /* RepositoryListModel.swift */,
-				0950948F250D220F00F5C6CA /* RepositoryModel.swift */,
-				BFD945E2244DC5E80012785A /* RepositoriesTableViewController.swift */,
-				BF0A658C244F2A3B00280FA6 /* RepositoryViewController.swift */,
+				09477A6F2512720E00FEB902 /* Models */,
+				09477A6E251271E900FEB902 /* ViewControllers */,
 				093D97A025123F2100844DCA /* URLsession-Extension.swift */,
 				BFD945E4244DC5E80012785A /* Main.storyboard */,
 				BFD945E7244DC5EB0012785A /* Assets.xcassets */,

@@ -34,6 +34,7 @@ class RepositoryViewController: UIViewController {
     }
 }
 
+// モデルからDelegateを使って変更を受信
 extension RepositoryViewController: RepositoryModelDelegate{
     func fetchImageResult(result: ApiResult) {
         guard let image = result.value as? UIImage else { return }
