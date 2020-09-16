@@ -33,10 +33,9 @@
     - storyboardのauto layout不足の解消
 - メモリリーク
     - 循環参照を弱参照などで解消
-    - まだあるかも
 - パースエラー
     - スペルミスを発見
-    - そもそもGitHubのwatchersの概念が変更するようで、詳細画面遷移時にもう一度apiを叩く仕様に変更
+    - そもそもGitHubのwatchersの概念が変更するようで、詳細画面遷移時にもう一度apiを叩く仕様に変更＜[参考記事](https://github.com/milo/github-api/issues/19)
 
 ## #5 Fat VC の回避
  - 各ビューコントローラーのURLsessionTask周りの責務をモデルクラスを作って移譲
@@ -47,10 +46,12 @@
 ## #6 プログラム構造をリファクタリング
 
 - DRY 原則
+    - URLsessionを使ったApi処理を繰り返しているので、URLSessionにextensionで、getApiResultという関数を作って一つにまとめました。
 
 - CQS 原則
 
-- 単一責任原則
+- 単一責任原則    
+    - モデルはビジネスロジックのみ
 
 - インターフェイス分離の原則
 
@@ -60,7 +61,13 @@
  
 
 ## #7 アーキテクチャを適用
-
+- cocoa MVCの適用にチャレンジ
+    - #5 #6によってvcの責務を分けました。
+    - Model　ビジネスロジック（getApiResultなど）
+    - View　storyboardなど
+    - Controller　ViewControllerの責務
+            - ユーザーの入力を受けてモデルに入力内容を渡す。
+            - モデルとViewを保持しモデルの変更を受け付けてViewをロード。
   
 
 ## #10 テストを追加
