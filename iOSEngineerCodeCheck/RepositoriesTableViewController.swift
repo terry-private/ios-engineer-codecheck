@@ -51,6 +51,7 @@ class RepositoriesTableViewController: UITableViewController {
         
     }
     
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         index = indexPath.row
         performSegue(withIdentifier: "Detail", sender: self)
@@ -58,7 +59,7 @@ class RepositoriesTableViewController: UITableViewController {
     
 }
 
-// UISearchBarDelegateのロジック周りをextensionとして分けます。
+/// UISearchBarDelegateのロジック周りをextensionとして分けます。
 extension RepositoriesTableViewController: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
@@ -76,15 +77,22 @@ extension RepositoriesTableViewController: UISearchBarDelegate {
     }
 }
 
+
 extension RepositoriesTableViewController: RepositoryListDelegate {
-    func fetchRepositoryList(searchResults: [[String : Any]]) {
-        repositories = searchResults
+    
+    /// 非同期処理　itemsを手に入れて再描画←メインスレッドにて
+    /// - Parameter result: ApiResult Json type 辞書型です。
+    func fetchRepositories(result: ApiResult) {
+        guard let repositoryData = result.value as? [String: Any] else { return }
+        guard let items = repositoryData["items"] as? [[String: Any]] else { return }
+        repositories = items
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
 }
 
+/// storyboardのカスタムセルでし。
 class RepositoryTabelViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!

@@ -35,18 +35,20 @@ class RepositoryViewController: UIViewController {
 }
 
 extension RepositoryViewController: RepositoryModelDelegate{
-    // ModelDelegateからのイベント
-    // 別のスレッドから実行されでメインスレッドを指定しないとエラーが出る
-    func fetchContents() {
-        DispatchQueue.main.async {
-            self.setContent()
-        }
-    }
-    
-    func fetchImage(image: UIImage) {
+    func fetchImageResult(result: ApiResult) {
+        guard let image = result.value as? UIImage else { return }
         DispatchQueue.main.async {
             self.imageView.image = image
         }
     }
     
+    // RepositoryModelからRepositoryModelDelegateを通して非同期で呼ばれる関数
+    // ApiResultはjson type のため中身はパース後のdicのはず　違う場合はエラー処理
+    func fetchContentsResult(result: ApiResult) {
+        guard let repositoryData = result.value as? [String: Any] else { return }
+        repository?.subscribersCount = repositoryData["subscribers_count"] as? Int ?? 0
+        DispatchQueue.main.async {
+            self.setContent()
+        }
+    }
 }

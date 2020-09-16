@@ -8,8 +8,9 @@
 
 import Foundation
 protocol RepositoryListDelegate: class {
-    func fetchRepositoryList(searchResults: [[String: Any]])
+    func fetchRepositories(result: ApiResult)
 }
+
 
 class RepositoryListModel {
     var task: URLSessionTask?
@@ -20,25 +21,12 @@ class RepositoryListModel {
         task?.cancel()
     }
     
+    /// getApiResultでApiResultをVCに送ります。
+    /// - Parameter serchWord: 検索ワードをapiのurlとくっつけて渡します　欲しい結果のタイプはJsonです。
     func serchRepositories(_ serchWord: String) {
         if serchWord.count == 0 { return }
-        
-        // URLの強制アンラップを廃止し事前にエラーとしてreturn
-        guard let url = URL(string: "https://api.github.com/search/repositories?q=\(serchWord)") else {
-            print("urlエラー")
-            return
-        }
-        task = URLSession.shared.dataTask(with: url) { (data, res, err) in
-            // クライアント側のエラー
-            if let err = err {
-                print("検索失敗。\(err)")
-                return
-            }
-            guard let data = data, let obj = try! JSONSerialization.jsonObject(with: data) as? [String: Any] else {return}
-            if let items = obj["items"] as? [[String: Any]] {
-                self.delegate?.fetchRepositoryList(searchResults: items)
-            }
-        }
-        task?.resume()
+        guard let delegateFunc = delegate?.fetchRepositories else { return }
+        URLSession.getApiResult(apiUrl: "https://api.github.com/search/repositories?q=\(serchWord)",
+            type: .Json, delegateFunc: delegateFunc)
     }
 }
