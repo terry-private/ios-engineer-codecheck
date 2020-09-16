@@ -77,7 +77,7 @@ extension RepositoriesTableViewController: UISearchBarDelegate {
     }
 }
 
-
+// モデルからDelegateを使って変更を受信
 extension RepositoriesTableViewController: RepositoryListDelegate {
     
     /// 非同期処理　itemsを手に入れて再描画←メインスレッドにて
