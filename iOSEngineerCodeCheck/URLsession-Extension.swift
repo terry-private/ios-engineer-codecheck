@@ -16,15 +16,15 @@ extension URLSession {
     ///   - apiUrl: String型のAPIのURLを渡すとURLクラスをインスタンス化します。イニシャライズ時にサニタイズしてるっぽいのでnilでreturnするのみ
     ///   - type: ApiResultTypeを渡してApiResultを生成するときに型を指定します。
     ///   - delegateFunc: ここで生成したApiResultを元にViewControllerで描画処理をします。
-    class func getApiResult(apiUrl: String, type: ApiResultType, delegateFunc: @escaping (ApiResult) -> Void){
+    class func getApiResult(apiUrl: String, type: ApiResultType, delegateFunc: @escaping (ApiResult) -> Void) -> URLSessionTask? {
         guard let url = URL(string: apiUrl) else {
             print("getApiResult > url_error")
             delegateFunc(ApiResult(type: .Error, data: nil))
-            return
+            return nil
         }
         
         //　ここから別スレッド
-        self.shared.dataTask(with: url) {(data, res, err) in
+        let task = self.shared.dataTask(with: url) {(data, res, err) in
             if let err = err {
                 print("session_error: \(err)")
                 delegateFunc(ApiResult(type: .Error, data: nil))
@@ -36,7 +36,9 @@ extension URLSession {
                 return
             }
             delegateFunc(ApiResult(type: type, data: data))
-        }.resume()
+        }
+        task.resume()
+        return task
     }
 }
 
