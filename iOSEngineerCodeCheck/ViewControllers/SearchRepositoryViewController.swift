@@ -9,17 +9,19 @@
 import UIKit
 import Nuke
 
+/// 検索画面
 class SearchRepositoryViewController: UIViewController {
     let cellId = "cellId"
     var repositories: [[String: Any]]=[]
     let repositoryListModel = RepositoryListModel()
     var index = 0
     
-    // インジゲーターの設定
+    // クルクルインジゲーター
     var indicator = UIActivityIndicatorView()
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var repositoryListTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.placeholder = "GitHubのリポジトリを検索できるよー"
@@ -28,7 +30,7 @@ class SearchRepositoryViewController: UIViewController {
         repositoryListTableView.dataSource = self
         repositoryListModel.delegate = self
         
-        // ラベル設定
+        // クルクルインジゲーター設定
         indicator.center = view.center
         indicator.style = UIActivityIndicatorView.Style.large
         view.addSubview(indicator)
@@ -41,7 +43,6 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
     // 遷移前に遷移先Viewにモデルとそのデリゲートをセットします。
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        // 画面遷移直前に呼ばれる
         if segue.identifier == "Detail"{
             let dtl = segue.destination as! RepositoryDetailViewController
             dtl.repository = RepositoryDetailModel(dic: repositories[self.index])
@@ -52,7 +53,6 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return repositories.count
     }
-    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = repositoryListTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! RepositoryListTabelViewCell
@@ -61,6 +61,7 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // prepareの処理でindexを使いたいのでselfのindexに一旦保持します。
         index = indexPath.row
         performSegue(withIdentifier: "Detail", sender: self)
     }
@@ -69,7 +70,7 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
 /// UISearchBarDelegateのロジック周りをextensionとして分けます。
 extension SearchRepositoryViewController: UISearchBarDelegate {
     
-    // 編集するとApiのタスクが止まる仕様
+    // 編集するとApiのタスクとクルクルが止まる仕様
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         repositoryListModel.cancel()
         DispatchQueue.main.async {
@@ -78,7 +79,7 @@ extension SearchRepositoryViewController: UISearchBarDelegate {
         }
     }
     
-    
+    // 検索ボタン押下時処理　クルクルスタート
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
         indicator.startAnimating()
@@ -96,6 +97,8 @@ extension SearchRepositoryViewController: RepositoryListModelDelegate {
         guard let items = repositoryData["items"] as? [[String: Any]] else { return }
         
         repositories = items
+        
+        // メインスレッド内で描画系の処理を走らせます。クルクルストップ
         DispatchQueue.main.async {
             self.repositoryListTableView.reloadData()
             self.indicator.stopAnimating()
@@ -113,6 +116,7 @@ class RepositoryListTabelViewCell: UITableViewCell {
     @IBOutlet weak var starsLabel: UILabel!
     var repositoryData = [String: Any]() {
         didSet{
+            // モデルをセットしたタイミングで表示処理を走らせます。
             guard let owner = repositoryData["owner"] as? [String: Any] else { return }
             guard let avatarUrl = owner["avatar_url"] as? String else { return }
             guard let url = URL(string:avatarUrl) else { return }
