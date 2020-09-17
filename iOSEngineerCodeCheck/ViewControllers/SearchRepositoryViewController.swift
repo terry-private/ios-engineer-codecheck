@@ -15,6 +15,9 @@ class SearchRepositoryViewController: UIViewController {
     let repositoryListModel = RepositoryListModel()
     var index = 0
     
+    // インジゲーターの設定
+    var indicator = UIActivityIndicatorView()
+    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var repositoryListTableView: UITableView!
     override func viewDidLoad() {
@@ -24,6 +27,11 @@ class SearchRepositoryViewController: UIViewController {
         repositoryListTableView.delegate = self
         repositoryListTableView.dataSource = self
         repositoryListModel.delegate = self
+        
+        // ラベル設定
+        indicator.center = view.center
+        indicator.style = UIActivityIndicatorView.Style.large
+        view.addSubview(indicator)
     
     }
 }
@@ -36,8 +44,6 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
             let dtl = segue.destination as! RepositoryDetailViewController
             dtl.repository = RepositoryDetailModel(dic: repositories[self.index])
             dtl.repository?.delegate = dtl
-            dtl.repository?.fetchSubscribersCount()
-            dtl.repository?.fetchImage()
         }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,10 +52,9 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
     
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = repositoryListTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! RepositoryListTabelViewCell
-        
         cell.repositoryData = repositories[indexPath.row]
-        
         cell.tag = indexPath.row
         return cell
         
@@ -66,9 +71,14 @@ extension SearchRepositoryViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         repositoryListModel.cancel()
+        DispatchQueue.main.async {
+            self.repositoryListTableView.reloadData()
+            self.indicator.stopAnimating()
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        indicator.startAnimating()
         repositoryListModel.serchRepositories(searchBar.text ?? "")
     }
 }
@@ -85,6 +95,7 @@ extension SearchRepositoryViewController: RepositoryListModelDelegate {
         repositories = items
         DispatchQueue.main.async {
             self.repositoryListTableView.reloadData()
+            self.indicator.stopAnimating()
         }
     }
 }
