@@ -8,7 +8,7 @@
 
 import Foundation
 
-
+// githubの言語別のカラーを拾ってきました。
 struct LanguageColorList{
     static var hexDdata = [
         "Mercury": "#ff2b2b",

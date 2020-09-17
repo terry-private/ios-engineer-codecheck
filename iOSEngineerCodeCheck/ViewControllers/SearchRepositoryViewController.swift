@@ -121,6 +121,7 @@ class RepositoryListTabelViewCell: UITableViewCell {
             languageLabel.text = repositoryData["language"] as? String ?? ""
             repositoryNameLabel.text = repositoryData["name"] as? String ?? ""
             starsLabel.text = String(repositoryData["stargazers_count"] as? Int ?? 0)
+            
             if languageLabel.text == "" {
                 languageColorView.isHidden = true
             } else {

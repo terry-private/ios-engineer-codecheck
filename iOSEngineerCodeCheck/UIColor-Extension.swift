@@ -14,8 +14,8 @@ extension UIColor {
     }
     static func languageColor(language: String) -> UIColor  {
         let lc = LanguageColorList.hexDdata[language] ?? "#000000"
-        let lh = lc.dropFirst(1)
-        return self.hex(String(lh))
+        let lh = String(lc.dropFirst(1))
+        return self.hex(lh)
     }
     static func hex(_ hex: String, alpha: CGFloat = 1.0) -> UIColor  {
         let v = Int("000000" + hex, radix: 16) ?? 0
