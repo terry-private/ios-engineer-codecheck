@@ -37,6 +37,8 @@ class SearchRepositoryViewController: UIViewController {
 }
 
 extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    // 遷移前に遷移先Viewにモデルとそのデリゲートをセットします。
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         // 画面遷移直前に呼ばれる
@@ -46,18 +48,16 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
             dtl.repository?.delegate = dtl
         }
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return repositories.count
     }
     
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = repositoryListTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! RepositoryListTabelViewCell
         cell.repositoryData = repositories[indexPath.row]
-        cell.tag = indexPath.row
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -69,6 +69,7 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
 /// UISearchBarDelegateのロジック周りをextensionとして分けます。
 extension SearchRepositoryViewController: UISearchBarDelegate {
     
+    // 編集するとApiのタスクが止まる仕様
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         repositoryListModel.cancel()
         DispatchQueue.main.async {
@@ -77,7 +78,9 @@ extension SearchRepositoryViewController: UISearchBarDelegate {
         }
     }
     
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.view.endEditing(true)
         indicator.startAnimating()
         repositoryListModel.serchRepositories(searchBar.text ?? "")
     }
