@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct languageColorList{
+struct LanguageColorList{
     let hexDdata = [
         "Mercury": "#ff2b2b",
         "TypeScript": "#2b7489",
