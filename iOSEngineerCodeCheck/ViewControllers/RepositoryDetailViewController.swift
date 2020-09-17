@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RepositoryViewController: UIViewController {
+class RepositoryDetailViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -18,7 +18,7 @@ class RepositoryViewController: UIViewController {
     @IBOutlet weak var forksLabel: UILabel!
     @IBOutlet weak var issuesLabel: UILabel!
 
-    var repository: RepositoryModel?
+    var repository: RepositoryDetailModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class RepositoryViewController: UIViewController {
 }
 
 // モデルからDelegateを使って変更を受信
-extension RepositoryViewController: RepositoryModelDelegate{
+extension RepositoryDetailViewController: RepositoryDetailModelDelegate{
     func fetchImageResult(result: ApiResult) {
         guard let image = result.value as? UIImage else { return }
         DispatchQueue.main.async {

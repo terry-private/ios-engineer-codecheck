@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RepositoriesTableViewController: UITableViewController {
+class RepositoryListTableViewController: UITableViewController {
     
     @IBOutlet weak var repositorySearchBar: UISearchBar!
     let cellId = "Repository"
@@ -27,8 +27,8 @@ class RepositoriesTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // 画面遷移直前に呼ばれる
         if segue.identifier == "Detail"{
-            let dtl = segue.destination as! RepositoryViewController
-            dtl.repository = RepositoryModel(dic: repositories[index])
+            let dtl = segue.destination as! RepositoryDetailViewController
+            dtl.repository = RepositoryDetailModel(dic: repositories[index])
             dtl.repository?.delegate = dtl
             dtl.repository?.fetchSubscribersCount()
             dtl.repository?.fetchImage()
@@ -60,7 +60,7 @@ class RepositoriesTableViewController: UITableViewController {
 }
 
 /// UISearchBarDelegateのロジック周りをextensionとして分けます。
-extension RepositoriesTableViewController: UISearchBarDelegate {
+extension RepositoryListTableViewController: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         // ↓こうすれば初期のテキストを消せる
@@ -78,7 +78,7 @@ extension RepositoriesTableViewController: UISearchBarDelegate {
 }
 
 // モデルからDelegateを使って変更を受信
-extension RepositoriesTableViewController: RepositoryListDelegate {
+extension RepositoryListTableViewController: RepositoryListModelDelegate {
     
     /// 非同期処理　itemsを手に入れて再描画←メインスレッドにて
     /// - Parameter result: ApiResult Json type 辞書型です。
