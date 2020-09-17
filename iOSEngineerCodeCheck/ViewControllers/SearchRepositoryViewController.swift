@@ -109,6 +109,9 @@ class RepositoryListTabelViewCell: UITableViewCell {
             starsLabel.text = String(repositoryData["stargazers_count"] as? Int ?? 0)
             if languageLabel.text == "" {
                 languageColorView.isHidden = true
+            } else {
+                languageLabel.isHidden = false
+                languageColorView.backgroundColor = .languageColor(language: languageLabel.text ?? "")
             }
         }
     }
