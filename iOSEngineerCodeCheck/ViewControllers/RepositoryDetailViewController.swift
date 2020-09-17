@@ -22,9 +22,12 @@ class RepositoryDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        repository?.fetchSubscribersCount()
+        repository?.fetchImage()
     }
     
     func setContent() {
+        if repository == nil { return }
         titleLabel.text = repository?.fullName
         languageLabel.text = "Written in \(repository?.language ?? "")"
         starsLabel.text = "\(repository?.stars ?? 0) stars"
