@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		093D97A125123F2100844DCA /* URLsession-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093D97A025123F2100844DCA /* URLsession-Extension.swift */; };
 		094C5A3A250DEFEA009FB75B /* RepositoryListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094C5A39250DEFEA009FB75B /* RepositoryListModel.swift */; };
-		09509490250D220F00F5C6CA /* RepositoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950948F250D220F00F5C6CA /* RepositoryModel.swift */; };
+		09509490250D220F00F5C6CA /* RepositoryDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950948F250D220F00F5C6CA /* RepositoryDetailModel.swift */; };
 		09509492250D39DC00F5C6CA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 09509491250D39DB00F5C6CA /* README.md */; };
-		BF0A658D244F2A3B00280FA6 /* RepositoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A658C244F2A3B00280FA6 /* RepositoryViewController.swift */; };
+		BF0A658D244F2A3B00280FA6 /* RepositoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A658C244F2A3B00280FA6 /* RepositoryDetailViewController.swift */; };
 		BFD945DF244DC5E80012785A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD945DE244DC5E80012785A /* AppDelegate.swift */; };
 		BFD945E1244DC5E80012785A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD945E0244DC5E80012785A /* SceneDelegate.swift */; };
-		BFD945E3244DC5E80012785A /* RepositoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD945E2244DC5E80012785A /* RepositoriesTableViewController.swift */; };
+		BFD945E3244DC5E80012785A /* RepositoryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD945E2244DC5E80012785A /* RepositoryListTableViewController.swift */; };
 		BFD945E6244DC5E80012785A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFD945E4244DC5E80012785A /* Main.storyboard */; };
 		BFD945E8244DC5EB0012785A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFD945E7244DC5EB0012785A /* Assets.xcassets */; };
 		BFD945EB244DC5EB0012785A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFD945E9244DC5EB0012785A /* LaunchScreen.storyboard */; };
@@ -42,13 +42,13 @@
 /* Begin PBXFileReference section */
 		093D97A025123F2100844DCA /* URLsession-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLsession-Extension.swift"; sourceTree = "<group>"; };
 		094C5A39250DEFEA009FB75B /* RepositoryListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListModel.swift; sourceTree = "<group>"; };
-		0950948F250D220F00F5C6CA /* RepositoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryModel.swift; sourceTree = "<group>"; };
+		0950948F250D220F00F5C6CA /* RepositoryDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailModel.swift; sourceTree = "<group>"; };
 		09509491250D39DB00F5C6CA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		BF0A658C244F2A3B00280FA6 /* RepositoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryViewController.swift; sourceTree = "<group>"; };
+		BF0A658C244F2A3B00280FA6 /* RepositoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailViewController.swift; sourceTree = "<group>"; };
 		BFD945DB244DC5E80012785A /* iOSEngineerCodeCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSEngineerCodeCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFD945DE244DC5E80012785A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFD945E0244DC5E80012785A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BFD945E2244DC5E80012785A /* RepositoriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesTableViewController.swift; sourceTree = "<group>"; };
+		BFD945E2244DC5E80012785A /* RepositoryListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListTableViewController.swift; sourceTree = "<group>"; };
 		BFD945E5244DC5E80012785A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BFD945E7244DC5EB0012785A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BFD945EA244DC5EB0012785A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -89,8 +89,8 @@
 		09477A6E251271E900FEB902 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				BFD945E2244DC5E80012785A /* RepositoriesTableViewController.swift */,
-				BF0A658C244F2A3B00280FA6 /* RepositoryViewController.swift */,
+				BFD945E2244DC5E80012785A /* RepositoryListTableViewController.swift */,
+				BF0A658C244F2A3B00280FA6 /* RepositoryDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -99,7 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				094C5A39250DEFEA009FB75B /* RepositoryListModel.swift */,
-				0950948F250D220F00F5C6CA /* RepositoryModel.swift */,
+				0950948F250D220F00F5C6CA /* RepositoryDetailModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -291,9 +291,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFD945E3244DC5E80012785A /* RepositoriesTableViewController.swift in Sources */,
-				09509490250D220F00F5C6CA /* RepositoryModel.swift in Sources */,
-				BF0A658D244F2A3B00280FA6 /* RepositoryViewController.swift in Sources */,
+				BFD945E3244DC5E80012785A /* RepositoryListTableViewController.swift in Sources */,
+				09509490250D220F00F5C6CA /* RepositoryDetailModel.swift in Sources */,
+				BF0A658D244F2A3B00280FA6 /* RepositoryDetailViewController.swift in Sources */,
 				094C5A3A250DEFEA009FB75B /* RepositoryListModel.swift in Sources */,
 				BFD945DF244DC5E80012785A /* AppDelegate.swift in Sources */,
 				BFD945E1244DC5E80012785A /* SceneDelegate.swift in Sources */,

@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol RepositoryModelDelegate: class {
+protocol RepositoryDetailModelDelegate: class {
     func fetchContentsResult(result: ApiResult)
     func fetchImageResult(result: ApiResult)
 }
 
-class RepositoryModel {
+class RepositoryDetailModel {
     var fullName: String = ""
     var language: String = ""
     var stars: Int = 0
@@ -33,8 +33,11 @@ class RepositoryModel {
     var repositoryUrl: String = ""
     
     // メモリリークを避けるための弱参照
-    weak var delegate: RepositoryModelDelegate?
-
+    weak var delegate: RepositoryDetailModelDelegate?
+    var task : URLSessionTask?
+    func cancel() {
+        task?.cancel()
+    }
     /// イニシャライザーでgithub api から取ったjsonをパースした辞書をそのまま展開します。
     /// - Parameter dic:github api から取ったjsonをパースした辞書
     init(dic: [String: Any]){
@@ -50,12 +53,12 @@ class RepositoryModel {
     func fetchSubscribersCount(){
         if repositoryUrl == "" { return }
         guard let delegateFunc = delegate?.fetchContentsResult else { return }
-        URLSession.getApiResult(apiUrl: repositoryUrl, type: .Json, delegateFunc: delegateFunc)
+        task = URLSession.getApiResult(apiUrl: repositoryUrl, type: .Json, delegateFunc: delegateFunc)
     }
     
     func fetchImage() {
         guard let urlString = owner["avatar_url"] as? String else { return }
         guard let delegateFunc = delegate?.fetchImageResult else { return }
-        URLSession.getApiResult(apiUrl: urlString, type: .Image, delegateFunc: delegateFunc)
+        task = URLSession.getApiResult(apiUrl: urlString, type: .Image, delegateFunc: delegateFunc)
     }
 }

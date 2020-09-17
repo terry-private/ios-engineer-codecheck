@@ -7,7 +7,7 @@
 //
 
 import Foundation
-protocol RepositoryListDelegate: class {
+protocol RepositoryListModelDelegate: class {
     func fetchRepositories(result: ApiResult)
 }
 
@@ -15,7 +15,7 @@ protocol RepositoryListDelegate: class {
 class RepositoryListModel {
     var task: URLSessionTask?
     // メモリリークを避けるための弱参照
-    weak var delegate: RepositoryListDelegate?
+    weak var delegate: RepositoryListModelDelegate?
     
     func cancel() {
         task?.cancel()
@@ -26,7 +26,7 @@ class RepositoryListModel {
     func serchRepositories(_ serchWord: String) {
         if serchWord.count == 0 { return }
         guard let delegateFunc = delegate?.fetchRepositories else { return }
-        URLSession.getApiResult(apiUrl: "https://api.github.com/search/repositories?q=\(serchWord)",
+        task = URLSession.getApiResult(apiUrl: "https://api.github.com/search/repositories?q=\(serchWord)",
             type: .Json, delegateFunc: delegateFunc)
     }
 }
