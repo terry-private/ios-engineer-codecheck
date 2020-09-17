@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 class SearchRepositoryViewController: UIViewController {
     let cellId = "cellId"
@@ -27,57 +28,6 @@ class SearchRepositoryViewController: UIViewController {
     }
 }
 
-//class SearchRepositoryViewController: UITableViewController {
-//    
-//    @IBOutlet weak var repositorySearchBar: UISearchBar!
-//    let cellId = "Repository"
-//    var repositories: [[String: Any]]=[]
-//    let repositoryListModel = RepositoryListModel()
-//
-//    var index: Int!
-//    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        repositorySearchBar.text = "GitHubのリポジトリを検索できるよー"
-//        repositorySearchBar.delegate = self
-//        repositoryListModel.delegate = self
-//    }
-//    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // 画面遷移直前に呼ばれる
-//        if segue.identifier == "Detail"{
-//            let dtl = segue.destination as! RepositoryDetailViewController
-//            dtl.repository = RepositoryDetailModel(dic: repositories[index])
-//            dtl.repository?.delegate = dtl
-//            dtl.repository?.fetchSubscribersCount()
-//            dtl.repository?.fetchImage()
-//        }
-//    }
-//    
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return repositories.count
-//    }
-//    
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        
-//        let cell = self.tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! RepositoryListTabelViewCell
-//
-//        let rp = repositories[indexPath.row]
-//        cell.titleLabel.text = rp["full_name"] as? String ?? ""
-//        cell.detailLabel.text = rp["language"] as? String ?? ""
-//        cell.tag = indexPath.row
-//        return cell
-//        
-//    }
-//    
-//
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        index = indexPath.row
-//        performSegue(withIdentifier: "Detail", sender: self)
-//    }
-//    
-//}
-
 extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -97,10 +47,9 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = repositoryListTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! RepositoryListTabelViewCell
-
-        let rp = repositories[indexPath.row]
-        cell.titleLabel.text = rp["full_name"] as? String ?? ""
-        cell.detailLabel.text = rp["language"] as? String ?? ""
+        
+        cell.repositoryData = repositories[indexPath.row]
+        
         cell.tag = indexPath.row
         return cell
         
@@ -114,12 +63,6 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
 
 /// UISearchBarDelegateのロジック周りをextensionとして分けます。
 extension SearchRepositoryViewController: UISearchBarDelegate {
-    
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        // ↓こうすれば初期のテキストを消せる
-        searchBar.text = ""
-        return true
-    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         repositoryListModel.cancel()
@@ -148,9 +91,30 @@ extension SearchRepositoryViewController: RepositoryListModelDelegate {
 
 /// storyboardのカスタムセルでし。
 class RepositoryListTabelViewCell: UITableViewCell {
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var detailLabel: UILabel!
+    @IBOutlet weak var ownerNameLabel: UILabel!
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var languageLabel: UILabel!
+    @IBOutlet weak var languageColorView: UIView!
+    @IBOutlet weak var repositoryNameLabel: UILabel!
+    @IBOutlet weak var starsLabel: UILabel!
+    var repositoryData = [String: Any]() {
+        didSet{
+            guard let owner = repositoryData["owner"] as? [String: Any] else { return }
+            guard let avatarUrl = owner["avatar_url"] as? String else { return }
+            guard let url = URL(string:avatarUrl) else { return }
+            Nuke.loadImage(with: url, into: avatarImageView)
+            ownerNameLabel.text = owner["login"] as? String ?? ""
+            languageLabel.text = repositoryData["language"] as? String ?? ""
+            repositoryNameLabel.text = repositoryData["name"] as? String ?? ""
+            starsLabel.text = String(repositoryData["stargazers_count"] as? Int ?? 0)
+            if languageLabel.text == "" {
+                languageColorView.isHidden = true
+            }
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
+        avatarImageView.layer.cornerRadius = avatarImageView.bounds.width/2
+        languageColorView.layer.cornerRadius = languageColorView.bounds.width/2
     }
 }
