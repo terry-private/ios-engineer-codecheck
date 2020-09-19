@@ -106,7 +106,7 @@ extension SearchRepositoryViewController: RepositoryListModelDelegate {
     }
 }
 
-/// storyboardのカスタムセルでし。
+/// storyboardのカスタムセル
 class RepositoryListTabelViewCell: UITableViewCell {
     @IBOutlet weak var ownerNameLabel: UILabel!
     @IBOutlet weak var avatarImageView: UIImageView!
@@ -120,13 +120,14 @@ class RepositoryListTabelViewCell: UITableViewCell {
             guard let owner = repositoryData["owner"] as? [String: Any] else { return }
             guard let avatarUrl = owner["avatar_url"] as? String else { return }
             guard let url = URL(string:avatarUrl) else { return }
+            guard let language = repositoryData["language"] as? String else { return }
             Nuke.loadImage(with: url, into: avatarImageView)
             ownerNameLabel.text = owner["login"] as? String ?? ""
-            languageLabel.text = repositoryData["language"] as? String ?? ""
+            languageLabel.text = language
             repositoryNameLabel.text = repositoryData["name"] as? String ?? ""
             starsLabel.text = String(repositoryData["stargazers_count"] as? Int ?? 0)
             
-            if languageLabel.text == "" {
+            if language == "" {
                 languageColorView.isHidden = true
             } else {
                 languageLabel.isHidden = false

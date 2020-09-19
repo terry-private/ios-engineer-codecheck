@@ -91,3 +91,11 @@ RepositorySearchViewController
  - RepositorySearchBar  
  - RepositoryListTableViewController  
      - RepositoryListTableViewCell
+
+
+
+
+
+# コードチェック後の独学用のブランチ: after_the_codecheck_period
+
+

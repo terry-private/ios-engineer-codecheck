@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		093D97A125123F2100844DCA /* URLsession-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093D97A025123F2100844DCA /* URLsession-Extension.swift */; };
+		093D97A125123F2100844DCA /* URLSession-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093D97A025123F2100844DCA /* URLSession-Extension.swift */; };
 		094167812513B9C9006509CC /* LanguageColorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094167802513B9C9006509CC /* LanguageColorList.swift */; };
 		094167832513C3F8006509CC /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094167822513C3F8006509CC /* UIColor-Extension.swift */; };
 		094C5A3A250DEFEA009FB75B /* RepositoryListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094C5A39250DEFEA009FB75B /* RepositoryListModel.swift */; };
 		09509490250D220F00F5C6CA /* RepositoryDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950948F250D220F00F5C6CA /* RepositoryDetailModel.swift */; };
 		09509492250D39DC00F5C6CA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 09509491250D39DB00F5C6CA /* README.md */; };
-		453D5A70191E7DAE6776C25B /* Pods_iOSEngineerCodeCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F79047E0E1C67E9980AA92 /* Pods_iOSEngineerCodeCheck.framework */; };
+		0961210025163AC800F4C336 /* Pods_iOSEngineerCodeCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F79047E0E1C67E9980AA92 /* Pods_iOSEngineerCodeCheck.framework */; };
 		6071208AEB44DB4E2D4CC8E9 /* Pods_iOSEngineerCodeCheckTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 404DB94DC15125415C23737D /* Pods_iOSEngineerCodeCheckTests.framework */; };
 		BBEBB66B5D7FAB2C18C345A3 /* Pods_iOSEngineerCodeCheck_iOSEngineerCodeCheckUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 088E361A5058506DAD5AE2D4 /* Pods_iOSEngineerCodeCheck_iOSEngineerCodeCheckUITests.framework */; };
 		BF0A658D244F2A3B00280FA6 /* RepositoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A658C244F2A3B00280FA6 /* RepositoryDetailViewController.swift */; };
@@ -46,7 +46,7 @@
 
 /* Begin PBXFileReference section */
 		088E361A5058506DAD5AE2D4 /* Pods_iOSEngineerCodeCheck_iOSEngineerCodeCheckUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSEngineerCodeCheck_iOSEngineerCodeCheckUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		093D97A025123F2100844DCA /* URLsession-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLsession-Extension.swift"; sourceTree = "<group>"; };
+		093D97A025123F2100844DCA /* URLSession-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession-Extension.swift"; sourceTree = "<group>"; };
 		094167802513B9C9006509CC /* LanguageColorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageColorList.swift; sourceTree = "<group>"; };
 		094167822513C3F8006509CC /* UIColor-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
 		094C5A39250DEFEA009FB75B /* RepositoryListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListModel.swift; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				453D5A70191E7DAE6776C25B /* Pods_iOSEngineerCodeCheck.framework in Frameworks */,
+				0961210025163AC800F4C336 /* Pods_iOSEngineerCodeCheck.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,7 +166,7 @@
 				BFD945E0244DC5E80012785A /* SceneDelegate.swift */,
 				09477A6F2512720E00FEB902 /* Models */,
 				09477A6E251271E900FEB902 /* ViewControllers */,
-				093D97A025123F2100844DCA /* URLsession-Extension.swift */,
+				093D97A025123F2100844DCA /* URLSession-Extension.swift */,
 				094167822513C3F8006509CC /* UIColor-Extension.swift */,
 				094167802513B9C9006509CC /* LanguageColorList.swift */,
 				BFD945E4244DC5E80012785A /* Main.storyboard */,
@@ -453,7 +453,7 @@
 				094C5A3A250DEFEA009FB75B /* RepositoryListModel.swift in Sources */,
 				BFD945DF244DC5E80012785A /* AppDelegate.swift in Sources */,
 				BFD945E1244DC5E80012785A /* SceneDelegate.swift in Sources */,
-				093D97A125123F2100844DCA /* URLsession-Extension.swift in Sources */,
+				093D97A125123F2100844DCA /* URLSession-Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,7 +667,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S7G9J68NLX;
+				DEVELOPMENT_TEAM = 58F4SK879Y;
 				INFOPLIST_FILE = iOSEngineerCodeCheckTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -690,7 +690,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S7G9J68NLX;
+				DEVELOPMENT_TEAM = 58F4SK879Y;
 				INFOPLIST_FILE = iOSEngineerCodeCheckTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -711,8 +711,9 @@
 			baseConfigurationReference = 1ED9832D13206790F9F23023 /* Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S7G9J68NLX;
+				DEVELOPMENT_TEAM = 58F4SK879Y;
 				INFOPLIST_FILE = iOSEngineerCodeCheckUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -732,8 +733,9 @@
 			baseConfigurationReference = F3000CC4F25830D7811CEA59 /* Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S7G9J68NLX;
+				DEVELOPMENT_TEAM = 58F4SK879Y;
 				INFOPLIST_FILE = iOSEngineerCodeCheckUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
