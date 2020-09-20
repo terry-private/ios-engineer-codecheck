@@ -99,3 +99,5 @@ RepositorySearchViewController
 # コードチェック後の独学用のブランチ: after_the_codecheck_period
 
 
+### 検索ボタンタップ時の動きを整理してみます。
+[検索ボタンタップ〜テーブルをリロードするまでの流れ](README_Images/tappedSearchButton.html)
