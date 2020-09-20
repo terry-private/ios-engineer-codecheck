@@ -23,7 +23,11 @@ class RepositoryDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         repository?.fetchSubscribersCount()
-        repository?.fetchImage()
+        DispatchQueue.main.async {
+            self.imageView.image = self.repository?.avatarImage
+        }
+        
+        
     }
     
     func setContent() {
@@ -39,12 +43,6 @@ class RepositoryDetailViewController: UIViewController {
 
 // モデルからDelegateを使って変更を受信
 extension RepositoryDetailViewController: RepositoryDetailModelDelegate{
-    func fetchImageResult(result: ApiResult) {
-        guard let image = result.value as? UIImage else { return }
-        DispatchQueue.main.async {
-            self.imageView.image = image
-        }
-    }
     
     // RepositoryModelからRepositoryModelDelegateを通して非同期で呼ばれる関数
     // ApiResultはjson type のため中身はパース後のdicのはず　違う場合はエラー処理

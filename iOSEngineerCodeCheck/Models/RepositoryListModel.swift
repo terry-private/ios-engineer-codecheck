@@ -12,6 +12,9 @@ protocol RepositoryListModelDelegate: class {
 }
 
 
+/// レポジトリ検索画面のVCが保持するモデル
+/// 実際のテーブルに表示するためのデータはVCのrepositoriesという変数で
+/// searchRepositoriesでApiResultを作成して中身の["items"]の部分を渡す形をとっています。
 class RepositoryListModel {
     var task: URLSessionTask?
     // メモリリークを避けるための弱参照

@@ -10,7 +10,6 @@ import UIKit
 
 protocol RepositoryDetailModelDelegate: class {
     func fetchContentsResult(result: ApiResult)
-    func fetchImageResult(result: ApiResult)
 }
 
 class RepositoryDetailModel {
@@ -21,7 +20,7 @@ class RepositoryDetailModel {
     var issues: Int = 0
     var subscribersCount: Int = 0
     var owner: [String: Any] = [String: Any]()
-    
+    var avatarImage: UIImage?
     /*
     githubにおいてwatcherの概念が変更となるようです。
     参考：https://github.com/milo/github-api/issues/19
@@ -54,11 +53,5 @@ class RepositoryDetailModel {
         if repositoryUrl == "" { return }
         guard let delegateFunc = delegate?.fetchContentsResult else { return }
         task = URLSession.getApiResult(apiUrl: repositoryUrl, type: .Json, delegateFunc: delegateFunc)
-    }
-    
-    func fetchImage() {
-        guard let urlString = owner["avatar_url"] as? String else { return }
-        guard let delegateFunc = delegate?.fetchImageResult else { return }
-        task = URLSession.getApiResult(apiUrl: urlString, type: .Image, delegateFunc: delegateFunc)
     }
 }

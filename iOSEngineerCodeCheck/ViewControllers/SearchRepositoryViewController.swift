@@ -14,7 +14,7 @@ class SearchRepositoryViewController: UIViewController {
     let cellId = "cellId"
     var repositories: [[String: Any]]=[]
     let repositoryListModel = RepositoryListModel()
-    var index = 0
+    var currentIndexPath: IndexPath?
     
     // クルクルインジゲーター
     var indicator = UIActivityIndicatorView()
@@ -43,10 +43,13 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
     // 遷移前に遷移先Viewにモデルとそのデリゲートをセットします。
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+        guard let indexPath = currentIndexPath else { return }
         if segue.identifier == "Detail"{
             let dtl = segue.destination as! RepositoryDetailViewController
-            dtl.repository = RepositoryDetailModel(dic: repositories[self.index])
+            let cell = repositoryListTableView.cellForRow(at: indexPath) as? RepositoryListTabelViewCell
+            dtl.repository = RepositoryDetailModel(dic: repositories[indexPath.row])
             dtl.repository?.delegate = dtl
+            dtl.repository?.avatarImage = cell?.avatarImageView.image
         }
     }
     
@@ -62,7 +65,7 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // prepareの処理でindexを使いたいのでselfのindexに一旦保持します。
-        index = indexPath.row
+        currentIndexPath = indexPath
         performSegue(withIdentifier: "Detail", sender: self)
     }
 }

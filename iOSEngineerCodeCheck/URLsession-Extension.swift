@@ -58,9 +58,6 @@ struct ApiResult {
                 guard let data = data  else { return nil}
                 let obj = try! JSONSerialization.jsonObject(with: data)
                 return obj
-            case .Image:
-                guard let data = data, let img = UIImage(data: data) else { return nil}
-                return img
             default:
                 return nil
             }
@@ -79,5 +76,4 @@ struct ApiResult {
 enum ApiResultType {
     case Error
     case Json
-    case Image
 }
