@@ -96,6 +96,13 @@ extension SearchRepositoryViewController: RepositoryListModelDelegate {
     /// 非同期処理　itemsを手に入れて再描画←メインスレッドにて
     /// - Parameter result: ApiResult Json type 辞書型です。
     func fetchRepositories(result: ApiResult) {
+        if result.type == .Error {
+            repositories == [[String: Any]]()
+            DispatchQueue.main.async {
+                self.repositoryListTableView.reloadData()
+                self.indicator.stopAnimating()
+            }
+        }
         guard let repositoryData = result.value as? [String: Any] else { return }
         guard let items = repositoryData["items"] as? [[String: Any]] else { return }
         

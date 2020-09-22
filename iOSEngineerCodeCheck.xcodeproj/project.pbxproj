@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		093D97A125123F2100844DCA /* URLSession-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093D97A025123F2100844DCA /* URLSession-Extension.swift */; };
 		094167812513B9C9006509CC /* LanguageColorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094167802513B9C9006509CC /* LanguageColorList.swift */; };
 		094167832513C3F8006509CC /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094167822513C3F8006509CC /* UIColor-Extension.swift */; };
 		094C5A3A250DEFEA009FB75B /* RepositoryListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094C5A39250DEFEA009FB75B /* RepositoryListModel.swift */; };
@@ -46,7 +45,6 @@
 
 /* Begin PBXFileReference section */
 		088E361A5058506DAD5AE2D4 /* Pods_iOSEngineerCodeCheck_iOSEngineerCodeCheckUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSEngineerCodeCheck_iOSEngineerCodeCheckUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		093D97A025123F2100844DCA /* URLSession-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession-Extension.swift"; sourceTree = "<group>"; };
 		094167802513B9C9006509CC /* LanguageColorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageColorList.swift; sourceTree = "<group>"; };
 		094167822513C3F8006509CC /* UIColor-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
 		094C5A39250DEFEA009FB75B /* RepositoryListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListModel.swift; sourceTree = "<group>"; };
@@ -166,7 +164,6 @@
 				BFD945E0244DC5E80012785A /* SceneDelegate.swift */,
 				09477A6F2512720E00FEB902 /* Models */,
 				09477A6E251271E900FEB902 /* ViewControllers */,
-				093D97A025123F2100844DCA /* URLSession-Extension.swift */,
 				094167822513C3F8006509CC /* UIColor-Extension.swift */,
 				094167802513B9C9006509CC /* LanguageColorList.swift */,
 				BFD945E4244DC5E80012785A /* Main.storyboard */,
@@ -453,7 +450,6 @@
 				094C5A3A250DEFEA009FB75B /* RepositoryListModel.swift in Sources */,
 				BFD945DF244DC5E80012785A /* AppDelegate.swift in Sources */,
 				BFD945E1244DC5E80012785A /* SceneDelegate.swift in Sources */,
-				093D97A125123F2100844DCA /* URLSession-Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
