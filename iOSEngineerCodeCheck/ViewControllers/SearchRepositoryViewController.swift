@@ -73,8 +73,9 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
 /// UISearchBarDelegateのロジック周りをextensionとして分けます。
 extension SearchRepositoryViewController: UISearchBarDelegate {
     
-    // 編集するとApiのタスクとクルクルが止まる仕様
+    // 編集するとApiのタスクとクルクルが止まる仕様(taskがrunningの場合のみ)
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if repositoryListModel.task?.state != URLSessionTask.State.running { return }
         repositoryListModel.cancel()
         DispatchQueue.main.async {
             self.repositoryListTableView.reloadData()
@@ -97,7 +98,7 @@ extension SearchRepositoryViewController: RepositoryListModelDelegate {
     /// - Parameter result: ApiResult Json type 辞書型です。
     func fetchRepositories(result: ApiResult) {
         if result.type == .Error {
-            repositories == [[String: Any]]()
+            repositories = [[String: Any]]()
             DispatchQueue.main.async {
                 self.repositoryListTableView.reloadData()
                 self.indicator.stopAnimating()

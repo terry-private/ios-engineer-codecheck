@@ -100,4 +100,4 @@ RepositorySearchViewController
 
 
 ### 検索ボタンタップ時の動きを整理してみます。
-![検索ボタンタップ〜テーブルをリロードするまでの流れ](README_Images/tappedSearchButton.jpg)
+![検索ボタンタップ〜テーブルをリロードするまでの流れ](README_Images/tappedSearchButton2.jpg)

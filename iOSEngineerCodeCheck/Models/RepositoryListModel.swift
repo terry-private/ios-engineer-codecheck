@@ -21,7 +21,9 @@ class RepositoryListModel {
     weak var delegate: RepositoryListModelDelegate?
     
     func cancel() {
+        if task?.state != URLSessionTask.State.running { return }
         task?.cancel()
+        task = nil
     }
     
     /// getApiResultでApiResultをVCに送ります。
@@ -29,6 +31,7 @@ class RepositoryListModel {
     func serchRepositories(_ serchWord: String) {
         if serchWord.count == 0 { return }
         guard let delegateFunc = delegate?.fetchRepositories else { return }
+        cancel()
         task = URLSession.getApiResult(apiUrl: "https://api.github.com/search/repositories?q=\(serchWord)",
             type: .Json, delegateFunc: delegateFunc)
     }

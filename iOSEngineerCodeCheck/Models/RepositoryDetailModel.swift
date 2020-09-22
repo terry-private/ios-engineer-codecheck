@@ -35,7 +35,9 @@ class RepositoryDetailModel {
     weak var delegate: RepositoryDetailModelDelegate?
     var task : URLSessionTask?
     func cancel() {
+        if task?.state != URLSessionTask.State.running { return }
         task?.cancel()
+        task = nil
     }
     /// イニシャライザーでgithub api から取ったjsonをパースした辞書をそのまま展開します。
     /// - Parameter dic:github api から取ったjsonをパースした辞書
@@ -52,6 +54,7 @@ class RepositoryDetailModel {
     func fetchSubscribersCount(){
         if repositoryUrl == "" { return }
         guard let delegateFunc = delegate?.fetchContentsResult else { return }
+        cancel()
         task = URLSession.getApiResult(apiUrl: repositoryUrl, type: .Json, delegateFunc: delegateFunc)
     }
 }
