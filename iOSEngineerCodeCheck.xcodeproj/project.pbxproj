@@ -11,6 +11,7 @@
 		094C5A3A250DEFEA009FB75B /* RepositoryListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094C5A39250DEFEA009FB75B /* RepositoryListModel.swift */; };
 		09509490250D220F00F5C6CA /* RepositoryDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950948F250D220F00F5C6CA /* RepositoryDetailModel.swift */; };
 		09509492250D39DC00F5C6CA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 09509491250D39DB00F5C6CA /* README.md */; };
+		09543FCC251F02B800802AFB /* LanguageColorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09543FCB251F02B800802AFB /* LanguageColorList.swift */; };
 		0961210025163AC800F4C336 /* Pods_iOSEngineerCodeCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F79047E0E1C67E9980AA92 /* Pods_iOSEngineerCodeCheck.framework */; };
 		096CF4B4251989A800258303 /* URLSession-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CF4B3251989A800258303 /* URLSession-Extension.swift */; };
 		6071208AEB44DB4E2D4CC8E9 /* Pods_iOSEngineerCodeCheckTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 404DB94DC15125415C23737D /* Pods_iOSEngineerCodeCheckTests.framework */; };
@@ -49,6 +50,7 @@
 		094C5A39250DEFEA009FB75B /* RepositoryListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListModel.swift; sourceTree = "<group>"; };
 		0950948F250D220F00F5C6CA /* RepositoryDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailModel.swift; sourceTree = "<group>"; };
 		09509491250D39DB00F5C6CA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		09543FCB251F02B800802AFB /* LanguageColorList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageColorList.swift; sourceTree = "<group>"; };
 		096CF4B3251989A800258303 /* URLSession-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession-Extension.swift"; sourceTree = "<group>"; };
 		1ED9832D13206790F9F23023 /* Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.debug.xcconfig"; path = "Target Support Files/Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests/Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		404DB94DC15125415C23737D /* Pods_iOSEngineerCodeCheckTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSEngineerCodeCheckTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +168,7 @@
 				09477A6E251271E900FEB902 /* ViewControllers */,
 				094167822513C3F8006509CC /* UIColor-Extension.swift */,
 				096CF4B3251989A800258303 /* URLSession-Extension.swift */,
+				09543FCB251F02B800802AFB /* LanguageColorList.swift */,
 				BFD945E4244DC5E80012785A /* Main.storyboard */,
 				BFD945E7244DC5EB0012785A /* Assets.xcassets */,
 				BFD945E9244DC5EB0012785A /* LaunchScreen.storyboard */,
@@ -443,6 +446,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFD945E3244DC5E80012785A /* SearchRepositoryViewController.swift in Sources */,
+				09543FCC251F02B800802AFB /* LanguageColorList.swift in Sources */,
 				096CF4B4251989A800258303 /* URLSession-Extension.swift in Sources */,
 				09509490250D220F00F5C6CA /* RepositoryDetailModel.swift in Sources */,
 				BF0A658D244F2A3B00280FA6 /* RepositoryDetailViewController.swift in Sources */,
