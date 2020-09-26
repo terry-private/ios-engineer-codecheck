@@ -19,13 +19,13 @@ class SearchRepositoryViewController: UIViewController {
     // クルクルインジゲーター
     var indicator = UIActivityIndicatorView()
     
-    @IBOutlet weak var searchBar: UISearchBar!
+    //var searchBar: UISearchBar!
+    var searchController: UISearchController!
     @IBOutlet weak var repositoryListTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.placeholder = "GitHubのリポジトリを検索できるよー"
-        searchBar.delegate = self
+        setupSearchBar()
         repositoryListTableView.delegate = self
         repositoryListTableView.dataSource = self
         repositoryListModel.delegate = self
@@ -36,6 +36,19 @@ class SearchRepositoryViewController: UIViewController {
         view.addSubview(indicator)
     
     }
+    
+    func setupSearchBar() {
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "GitHubのリポジトリを検索できるよー"
+        searchController.searchBar.delegate = self
+        navigationItem.searchController = searchController
+        // trueだとスクロールした時にSearchBarを隠す（デフォルトはtrue）
+        // falseだとスクロール位置に関係なく常にSearchBarが表示される
+        navigationItem.hidesSearchBarWhenScrolling = true
+    }
+    
     /// 確定ボタンを押した時に足りない情報がある場合のエラ〜メッセージダイアログを表示
     /// - Parameters:
     ///   - message: エラーメッセージ
@@ -83,10 +96,10 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
 }
 
 /// UISearchBarDelegateのロジック周りをextensionとして分けます。
-extension SearchRepositoryViewController: UISearchBarDelegate {
+extension SearchRepositoryViewController: UISearchResultsUpdating, UISearchBarDelegate {
     
     // 編集するとApiのタスクとクルクルが止まる仕様(taskがrunningの場合のみ)
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    func updateSearchResults(for searchController: UISearchController) {
         if repositoryListModel.task?.state != URLSessionTask.State.running { return }
         repositoryListModel.cancel()
         DispatchQueue.main.async {
@@ -94,6 +107,7 @@ extension SearchRepositoryViewController: UISearchBarDelegate {
             self.indicator.stopAnimating()
         }
     }
+    
     
     // 検索ボタン押下時処理　クルクルスタート
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
