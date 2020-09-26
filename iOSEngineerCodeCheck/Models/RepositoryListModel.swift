@@ -28,11 +28,10 @@ class RepositoryListModel {
     
     /// getApiResultでApiResultをVCに送ります。
     /// - Parameter serchWord: 検索ワードをapiのurlとくっつけて渡します　欲しい結果のタイプはJsonです。
-    func serchRepositories(_ serchWord: String) {
-        if serchWord.count == 0 { return }
+    func searchRepositories(_ searchWord: String) {
         guard let delegateFunc = delegate?.fetchRepositories else { return }
         cancel()
-        task = URLSession.getApiResult(apiUrl: "https://api.github.com/search/repositories?q=\(serchWord)",
+        task = URLSession.getApiResult(apiUrl: "https://api.github.com/search/repositories?q=\(searchWord)",
             type: .Json, delegateFunc: delegateFunc)
     }
 }

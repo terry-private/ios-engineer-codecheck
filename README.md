@@ -112,16 +112,18 @@ SearchRepositoryViewController
 - UITableViewのレイアウトが適切に設定されていないため、端末サイズによっては見切れたりしています。
     - これは提出後でしたが自分で気づき改善できました！
 - languageColorViewは一度非表示にすると元に戻す処理がないため、スクロールするたびに色のついた丸が減っていきます...
-    - languageLabel.text == ""でisHidden = true　にするのではなく repositoryData["language"] == ""にすると改善しました。。。？？
+    - if languageLabel.text == "" ではなく if language　※中身はrepositoryData["language"]  ==""　のように直接参照すると改善しました。。。表示する処理が別のスレッドで参照にラグがあるのかな？？
 - テストが実装されていないのが残念でした。
     - テストについてはまだよくわかりません、、、XcTextCaseのクラス内で実際に使っているモデルなどをインスタンス化してサンプルデータを入れて動かしてみるといった考え方だと認識しておりますが、サンプルデータを入れるためにはまずモデルクラスのビジネスロジックの部分をDIによる構成に変更してテストが書ける状態に変更すべきとまではわかるのですが、DIの仕方がいまいち掴めません。
 - 通信エラーのときにユーザーにその旨を伝える仕組みがあると、より良いと感じました。
+    - エラー毎にエラ〜メッセージを決めてダイアログ表示させるようにします。
 
 ------------------------------------
 ※上記に対しての追記です。
 Next
 - JsonのparseはDecodableなど使うとよいです
 - typo serch、Tabel Xcodeのスペルチェック機能が便利です。
+    - 眼から鱗がいっぱい出てきました。（参考：[Xcode11のSpell Checkにつまずいた](https://qiita.com/am10/items/2cf5576d7b36b4097cac)）
 - searchBarはNavigationBarにいれるとスクロールなど簡単に対応できます
 - ApiResultTypeにJson,Imageと並んでErrorがあり、呼び出し時にはErrorを使う事はなさそうなので、ApiResultTypeからは消してRequestTypeとして分けるかdelegateFuncを(Result<ApiResult>, Error) -> Voidのような形にするとよいです
 ------------------------------------

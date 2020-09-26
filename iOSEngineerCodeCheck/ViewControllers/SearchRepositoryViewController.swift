@@ -36,6 +36,18 @@ class SearchRepositoryViewController: UIViewController {
         view.addSubview(indicator)
     
     }
+    /// 確定ボタンを押した時に足りない情報がある場合のエラ〜メッセージダイアログを表示
+    /// - Parameters:
+    ///   - message: エラーメッセージ
+    func searchAlert(message:String) {
+        let alertController = UIAlertController(title: "入力エラー",
+                                   message: message,
+                                   preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK",
+                                       style: .default,
+                                       handler: nil))
+        present(alertController, animated: true)
+    }
 }
 
 extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -46,7 +58,7 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
         guard let indexPath = currentIndexPath else { return }
         if segue.identifier == "Detail"{
             let dtl = segue.destination as! RepositoryDetailViewController
-            let cell = repositoryListTableView.cellForRow(at: indexPath) as? RepositoryListTabelViewCell
+            let cell = repositoryListTableView.cellForRow(at: indexPath) as? RepositoryListTableViewCell
             dtl.repository = RepositoryDetailModel(dic: repositories[indexPath.row])
             dtl.repository?.delegate = dtl
             dtl.repository?.avatarImage = cell?.avatarImageView.image
@@ -58,7 +70,7 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = repositoryListTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! RepositoryListTabelViewCell
+        let cell = repositoryListTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! RepositoryListTableViewCell
         cell.repositoryData = repositories[indexPath.row]
         return cell
     }
@@ -85,9 +97,11 @@ extension SearchRepositoryViewController: UISearchBarDelegate {
     
     // 検索ボタン押下時処理　クルクルスタート
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchWord = searchBar.text else { return }
+        if searchWord == "" { searchAlert(message: "検索ワードを入力してください"); return }
         self.view.endEditing(true)
         indicator.startAnimating()
-        repositoryListModel.serchRepositories(searchBar.text ?? "")
+        repositoryListModel.searchRepositories(searchBar.text ?? "")
     }
 }
 
@@ -103,6 +117,8 @@ extension SearchRepositoryViewController: RepositoryListModelDelegate {
                 self.repositoryListTableView.reloadData()
                 self.indicator.stopAnimating()
             }
+            searchAlert(message: result.value as? String ?? "エラー")
+            return
         }
         guard let repositoryData = result.value as? [String: Any] else { return }
         guard let items = repositoryData["items"] as? [[String: Any]] else { return }
@@ -115,10 +131,11 @@ extension SearchRepositoryViewController: RepositoryListModelDelegate {
             self.indicator.stopAnimating()
         }
     }
+    
 }
 
 /// storyboardのカスタムセル
-class RepositoryListTabelViewCell: UITableViewCell {
+class RepositoryListTableViewCell: UITableViewCell {
     @IBOutlet weak var ownerNameLabel: UILabel!
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var languageLabel: UILabel!

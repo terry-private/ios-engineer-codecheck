@@ -13,7 +13,7 @@ extension UIColor {
         return self.init(red: red / 255, green: green / 255, blue: blue / 255, alpha: alpha)
     }
     static func languageColor(language: String) -> UIColor  {
-        let lc = LanguageColorList.hexDdata[language] ?? "000000"
+        let lc = LanguageColorList.hexData[language] ?? "000000"
         return self.hex(lc)
     }
     static func hex(_ hex: String, alpha: CGFloat = 1.0) -> UIColor  {
