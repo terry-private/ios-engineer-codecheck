@@ -87,7 +87,7 @@
 - TableViewにSearchBarが内包されているのが違和感（一緒にスクロールしてしまう）なので外側にViewControllを作って兄弟にしました。
 
 ### 階層は下記となります。
-RepositorySearchViewController 
+SearchRepositoryViewController 
  - RepositorySearchBar  
  - RepositoryListTableViewController  
      - RepositoryListTableViewCell
@@ -101,3 +101,27 @@ RepositorySearchViewController
 
 ### 検索ボタンタップ時の動きを整理してみます。
 ![検索ボタンタップ〜テーブルをリロードするまでの流れ](README_Images/tappedSearchButton2.jpg)
+
+
+# レビューをしてもらってからの改善について
+
+### 改善点
+- ApiResultはジェネリックを利用すると、よりシンプルなI/F設計ができるように感じました。
+    - ジェネリクスについて勉強しました、動的に型を指定できるようです。ただ今回どのように適用させるとよりよくなるかがわからない、、、
+    - 現状のvalueを参照する時にデータを加工するのではなく、イニシャライズ時に加工したデータをバリューに放り込んで、その時にジェネリクスで型を指定するか、、、
+- UITableViewのレイアウトが適切に設定されていないため、端末サイズによっては見切れたりしています。
+    - これは提出後でしたが自分で気づき改善できました！
+- languageColorViewは一度非表示にすると元に戻す処理がないため、スクロールするたびに色のついた丸が減っていきます...
+    - languageLabel.text == ""でisHidden = true　にするのではなく repositoryData["language"] == ""にすると改善しました。。。？？
+- テストが実装されていないのが残念でした。
+    - テストについてはまだよくわかりません、、、XcTextCaseのクラス内で実際に使っているモデルなどをインスタンス化してサンプルデータを入れて動かしてみるといった考え方だと認識しておりますが、サンプルデータを入れるためにはまずモデルクラスのビジネスロジックの部分をDIによる構成に変更してテストが書ける状態に変更すべきとまではわかるのですが、DIの仕方がいまいち掴めません。
+- 通信エラーのときにユーザーにその旨を伝える仕組みがあると、より良いと感じました。
+
+------------------------------------
+※上記に対しての追記です。
+Next
+- JsonのparseはDecodableなど使うとよいです
+- typo serch、Tabel Xcodeのスペルチェック機能が便利です。
+- searchBarはNavigationBarにいれるとスクロールなど簡単に対応できます
+- ApiResultTypeにJson,Imageと並んでErrorがあり、呼び出し時にはErrorを使う事はなさそうなので、ApiResultTypeからは消してRequestTypeとして分けるかdelegateFuncを(Result<ApiResult>, Error) -> Voidのような形にするとよいです
+------------------------------------
