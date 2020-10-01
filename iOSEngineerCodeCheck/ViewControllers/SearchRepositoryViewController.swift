@@ -98,16 +98,16 @@ extension SearchRepositoryViewController: UITableViewDelegate, UITableViewDataSo
 /// UISearchBarDelegateのロジック周りをextensionとして分けます。
 extension SearchRepositoryViewController: UISearchResultsUpdating, UISearchBarDelegate {
     
-    // 編集するとApiのタスクとクルクルが止まる仕様(taskがrunningの場合のみ)
+    // 編集だけでなくキーボードを開く時も
+    // Apiのタスクとクルクルが止まる仕様(taskがrunningの場合のみ)
     func updateSearchResults(for searchController: UISearchController) {
         if repositoryListModel.task?.state != URLSessionTask.State.running { return }
-        repositoryListModel.cancel()
         DispatchQueue.main.async {
+            //self.repositoryListModel.cancel()
             self.repositoryListTableView.reloadData()
             self.indicator.stopAnimating()
         }
     }
-    
     // 検索ボタン押下時処理　クルクルスタート
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchWord = searchBar.text else { return }
@@ -144,7 +144,6 @@ extension SearchRepositoryViewController: RepositoryListModelDelegate {
             self.indicator.stopAnimating()
         }
     }
-    
 }
 
 /// storyboardのカスタムセル
