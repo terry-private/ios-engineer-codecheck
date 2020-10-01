@@ -26,8 +26,6 @@ class RepositoryDetailViewController: UIViewController {
         DispatchQueue.main.async {
             self.imageView.image = self.repository?.avatarImage
         }
-        
-        
     }
     
     func setContent() {

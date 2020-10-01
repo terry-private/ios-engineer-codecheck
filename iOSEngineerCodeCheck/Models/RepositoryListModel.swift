@@ -15,7 +15,8 @@ protocol RepositoryListModelDelegate: class {
 /// レポジトリ検索画面のVCが保持するモデル
 /// 実際のテーブルに表示するためのデータはVCのrepositoriesという変数で
 /// searchRepositoriesでApiResultを作成して中身の["items"]の部分を渡す形をとっています。
-class RepositoryListModel {
+class RepositoryListModel: ApiTask {
+    
     var task: URLSessionTask?
     // メモリリークを避けるための弱参照
     weak var delegate: RepositoryListModelDelegate?
@@ -28,10 +29,10 @@ class RepositoryListModel {
     
     /// getApiResultでApiResultをVCに送ります。
     /// - Parameter serchWord: 検索ワードをapiのurlとくっつけて渡します　欲しい結果のタイプはJsonです。
-    func searchRepositories(_ searchWord: String) {
+    func getApiResult(apiUrl: String) {
         guard let delegateFunc = delegate?.fetchRepositories else { return }
         cancel()
-        task = URLSession.getApiResult(apiUrl: "https://api.github.com/search/repositories?q=\(searchWord)",
+        task = URLSession.getApiResult(apiUrl: "https://api.github.com/search/repositories?q=\(apiUrl)",
             type: .Json, delegateFunc: delegateFunc)
     }
 }

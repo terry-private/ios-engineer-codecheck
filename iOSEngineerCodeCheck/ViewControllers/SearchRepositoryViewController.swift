@@ -108,14 +108,13 @@ extension SearchRepositoryViewController: UISearchResultsUpdating, UISearchBarDe
         }
     }
     
-    
     // 検索ボタン押下時処理　クルクルスタート
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchWord = searchBar.text else { return }
         if searchWord == "" { searchAlert(message: "検索ワードを入力してください"); return }
         self.view.endEditing(true)
         indicator.startAnimating()
-        repositoryListModel.searchRepositories(searchBar.text ?? "")
+        repositoryListModel.getApiResult(apiUrl: searchBar.text ?? "")
     }
 }
 
@@ -172,7 +171,7 @@ class RepositoryListTableViewCell: UITableViewCell {
             if language == "" {
                 languageColorView.isHidden = true
             } else {
-                languageLabel.isHidden = false
+                languageLabel.isHidden = false // これがなかったからバグってたようです。
                 languageColorView.backgroundColor = .languageColor(language: languageLabel.text ?? "")
             }
         }

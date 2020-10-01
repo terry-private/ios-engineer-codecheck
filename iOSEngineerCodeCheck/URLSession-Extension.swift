@@ -43,6 +43,12 @@ extension URLSession {
     }
 }
 
+
+protocol ApiTask {
+    func cancel()
+    func getApiResult(apiUrl: String)
+}
+
 /// Apiの結果を複数のタイプに対応させるための構造体
 struct ApiResult {
     let type: ApiResultType
